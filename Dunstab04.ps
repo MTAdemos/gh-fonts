@@ -1,0 +1,860 @@
+%!
+% Dunstable music font -- for EECM 15th Century Music series
+%% Creator MTA
+%
+
+20 dict begin % font dict
+  /FontName /Dunstable04 def
+  /FontType 3 def
+  /FontMatrix[.001 0 0 .001 0 0]def
+  /FontBBox[-150 -1400 50000 2500]def
+  /Encoding[256{/.notdef}repeat]def
+  /IntProcs 22 dict dup/DictName 3 index put def
+  /ExtraCharacterDefs 10 dict dup/DictName 3 index put def
+  /CharacterDefs 100 dict dup/DictName 3 index put def
+  /MinimDict 30 dict dup/DictName 3 index put def
+  /BreveDict 30 dict dup/DictName 3 index put def
+  /BaseFont/Base-Music27m11  findfont def
+  /StemWidth 40 def
+  /MinimRight -66 def
+  /BreveRight 200 def
+  /RestsRight 70 pop 100 def
+  /FermataScaleFactor 0.75 def
+
+  /BuildGlyph{
+    exch begin
+      0 begin
+      /charname exch def
+      ExtraCharacterDefs charname known{
+        ExtraCharacterDefs charname get exec}
+        {CharacterDefs charname get exec
+      }ifelse
+      end
+    end
+  }dup 2 3 dict put bind def
+
+  /bcdict 10 dict def
+
+  /BuildChar{
+    //bcdict begin
+      2 copy/font exch def/num exch def
+      font/Encoding get num get/.notdef eq{
+        (\n.notdef: )print num =string cvs print flush
+      }if
+    end
+    1 index/Encoding get exch get
+    1 index/BuildGlyph get exec
+  }bind def
+
+  % MinimDict holds data for minims
+
+  MinimDict begin
+
+    /a 180 def            % horizontal displacement of outside points from middle
+    /MinimCentre 350 MinimRight add def
+
+    /x0 MinimCentre def         /y0 -40 def %
+    /x1 x0 a add def            /y1 200 def % coordinates of corners
+    /x2 MinimCentre def         /y2 440 def %
+    /x3 MinimCentre a sub def   /y3 200 def %
+
+    /ang1 y1 y0 sub x1 x0 sub atan def % Angles at the corners
+    /ang2 y2 y1 sub x2 x1 sub atan def %
+
+    /w1 70 def                         % Width of downward leading sides
+    /w2 30 def                         % Width of upward leading sides
+
+    /xi0 x0 w1 ang1 cos mul w2 ang2 cos mul add add def      %
+    /yi0 y0 w1 ang1 sin mul w2 ang2 sin mul add add def      %
+                                                             %
+    /xi1 x1 w1 ang1 cos mul w2 neg ang2 cos mul add sub def  %  Coordinates of
+    /yi1 y1 w1 ang1 sin mul w2 neg ang2 sin mul add sub def  %  inside vertices
+                                                             %
+    /xi2 x2 w1 ang1 cos mul w2 ang2 cos mul add sub def      %
+    /yi2 y2 w1 ang1 sin mul w2 ang2 sin mul add sub def      %
+                                                             %
+    /xi3 x3 w1 ang1 cos mul w2 ang2 cos mul add add def      %
+    /yi3 y3 w1 ang1 sin mul w2 ang2 sin mul add add def      %
+                                                             %
+    /xi3 x3 w1 ang1 cos mul w2 neg ang2 cos mul add add def  %
+    /yi3 y3 w1 ang1 sin mul w2 neg ang2 sin mul add add def  %
+  end % MinimDict
+
+  BreveDict begin
+    /doublebreve false def
+    /width 500 def
+    /lwidth StemWidth def
+    /endy 300 def
+    /hlwidth 90 0 exch dtransform round exch round exch idtransform exch pop def
+    /mainy 220 hlwidth 40 sub 2 div sub 0 exch dtransform round exch round exch idtransform exch pop  def
+    /centrex 350 BreveRight add def
+    /centrey 200 def
+  end % BreveDict
+
+  IntProcs begin
+    /.onround{transform round exch round exch itransform}bind def
+    /.offround{transform round 0.25 add exch round 0.25 add exch itransform}bind def
+    /Pm{//.onround exec moveto}bind def
+    /Pl{//.onround exec lineto}bind def
+    /40SlwSt{40 setlinewidth stroke}bind def
+    /pprol{400 800 390 0 360 arc 60 setlinewidth stroke}bind def
+    /iprol{400 800 390 45 315 arc 60 setlinewidth stroke}bind def
+    /iprolrev{400 800 390 225 135 arc 60 setlinewidth stroke}bind def
+    /pdot{400 800 80 0 360 arc fill}bind def
+    /pbar{400 200 //Pm exec 0 1200 rlineto 60 setlinewidth stroke}bind def
+    /DS{dup scale}bind def
+    /RestWid 150 def
+
+    /ellipsedict 4 dict dup/mtrx matrix put def
+
+    /ea{
+      ellipsedict begin
+        /savematrix mtrx currentmatrix def
+        translate 5 -1 roll rotate scale
+        dup 360 eq{
+           pop pop rcircle
+           }
+           {0 0 1 5 -2 roll arc
+        }ifelse
+        savematrix setmatrix
+      end
+    }bind def
+
+    /ec{
+      ellipsedict begin
+        /savematrix mtrx currentmatrix def
+        translate 5 -1 roll rotate scale
+        dup 360 eq{
+          pop pop circle
+          }
+          {0 0 1 5 -2 roll An
+        }ifelse
+        savematrix setmatrix
+      end
+    }bind def
+
+    /stave{
+      /setstrokeadjust where{pop true setstrokeadjust}if
+      0 0 Pm 0 dtransform exch ceiling exch idtransform pop dup 0 Pl 0 400 Pm
+      dup 400 Pl 0 800 Pm dup 800 Pl 0 1200 Pm dup 1200 Pl 0 1600 Pm 1600 Pl
+      30 setlinewidth stroke
+    }bind def
+
+    % BaseFontProc copies a glyph from a PH-Music series font and installs
+    % it in this font
+
+    /BaseFontProc{
+      userdict/BaseCharName 3 -1 roll put
+        BaseFont begin
+        [
+          //IntProcs /begin load
+            Metrics BaseCharName get
+            VMetrics BaseCharName 2 copy known{get}{pop pop 0}ifelse
+            BBox BaseCharName get exec
+            /setcachedevice load
+            CharacterDefs BaseCharName get aload pop
+          /end load % IntProcs
+        ]cvx %bind
+      end % BaseFont
+      CharacterDefs BaseCharName 3 -1 roll put
+    }bind def
+
+    /breve{
+      BreveDict begin
+
+      /x0 centrex width 2 div sub def
+      /x1 centrex width 2 div sub lwidth add def
+      /x2 centrex width 2 div add lwidth sub def
+      /x3 centrex width 2 div add def
+
+      doublebreve{
+        /x2 x2 width add def
+        /x3 x3 width add def
+      }if
+
+      /y-1 -1200 def
+      /y0 centrey endy sub def
+      /y1 centrey mainy sub def
+      /y2 centrey mainy sub hlwidth add def
+      /y3 centrey mainy add hlwidth sub def
+      /y4 centrey mainy add def
+      /y5 centrey endy add def
+      /y6 1600 def
+
+      705 0 x0 DoDownStem{y-1}{y0}ifelse x3 DoUpStem{y6}{y5}ifelse setcachedevice
+
+      % sides
+      x1 x0 sub setlinewidth true setstrokeadjust
+      x0 x1 add 2 div y0 moveto 0 y5 y0 sub rlineto stroke
+      x2 x3 add 2 div dup DoDownStem{y-1}{y0}ifelse moveto
+      DoUpStem{y6}{y5}ifelse lineto stroke
+
+      %horizontals
+      y2 y1 sub setlinewidth
+      x0 x1 add 2 div y1 y2 add 2 div moveto
+      x2 x3 add 2 div x0 x1 add 2 div sub 0 rlineto stroke
+
+      x2 x3 add 2 div y3 y4 add 2 div moveto
+      x1 x0 add 2 div x2 x3 add 2 div sub 0 rlineto stroke
+
+      White not{
+        x0 x1 add 2 div y1 y2 add 2 div moveto
+        x2 x3 add 2 div x0 x1 add 2 div sub 0 rlineto
+        x2 x3 add 2 div y3 y4 add 2 div lineto
+        x1 x0 add 2 div x2 x3 add 2 div sub 0 rlineto
+        closepath fill
+      }if
+
+      end
+    }bind def
+
+
+    /circle BaseFont 1 index get def
+    /rcircle BaseFont 1 index get def
+
+    /ellipsedict 4 dict dup/DictName 3 index put def
+    ellipsedict/mtrx matrix put
+
+    /ea{
+      //ellipsedict begin
+        /savematrix mtrx currentmatrix def
+        translate 5 -1 roll rotate scale
+        dup 360 eq{
+           pop pop rcircle
+           }
+           {0 0 1 5 -2 roll arc
+        }ifelse
+        savematrix setmatrix
+      end
+    }bind def
+
+    /ec{
+      //ellipsedict begin
+        /savematrix mtrx currentmatrix def
+        translate 5 -1 roll rotate scale
+        dup 360 eq{
+          pop pop circle
+          }
+          {0 0 1 5 -2 roll arcn
+        }ifelse
+        savematrix setmatrix
+      end
+    }bind def
+
+  end % IntProcs
+
+
+  IntProcs begin
+  CharacterDefs begin
+    /.notdef{0 0 setcharwidth}bind def
+
+    Encoding 32/sp put          /sp BaseFontProc
+    Encoding 33/trebleclef put  /trebleclef BaseFontProc
+    Encoding 34/bassclef put    /bassclef BaseFontProc
+    Encoding 35/altoclef put    /altoclef BaseFontProc
+    Encoding 37/sharp put
+    /sharp{
+      BaseFont 650 scalefont setfont
+      (%)stringwidth -100 -1000 1000 1000 setcachedevice
+      0 70 moveto (%)show
+    }bind def
+
+    Encoding 39/flat put
+    /flat{
+      450 0 115 -21 723 1220 setcachedevice
+      -180 -50 translate
+      true setstrokeadjust
+      1.39 dup scale
+      222 525 moveto
+      222 90 lineto
+      224 38 245 3 284 48 curveto
+      323 87 386 186 381 282 curveto
+      370 370 259 296 226 247 curveto
+      35 setlinewidth stroke
+    }bind def
+
+    Encoding 40/natural put
+    /natural{
+      BaseFont 650 scalefont setfont
+      (\()stringwidth -100 -1000 1000 1000 setcachedevice
+      40 70 moveto (\()show
+    }bind def
+
+    Encoding 41/tfermata put
+    /tfermata{
+      0 0 -150 -100 850 700 setcachedevice
+      1 FermataScaleFactor sub 271 mul 0 translate
+      FermataScaleFactor dup scale
+      271 0 translate 0 40 //.offround exec 80 0 360 arc fill 0 0 485 0 180 arc 0
+      180 0 500 650 0 0 //ec exec fill
+    }bind def
+
+    Encoding 42/brest put
+    /brest{
+      330 0 0 0 //RestWid //RestsRight add 400 setcachedevice
+      //RestsRight 0 moveto //RestWid 0 rlineto 0 400 rlineto //RestWid neg 0 rlineto
+      closepath fill
+    }bind def
+
+    Encoding 43/sbrest put
+    /sbrest{
+      330 0 0 0 //RestWid //RestsRight add 400 setcachedevice
+      //RestsRight 400 moveto 0 -200 rlineto //RestWid 0 rlineto 0 200 rlineto closepath fill
+    }bind def
+
+    Encoding 44/mrest put
+    /mrest{
+      330 0 0 0 //RestWid//RestsRight add 400 setcachedevice
+      RestsRight 0 moveto //RestWid 0 rlineto 0 200 rlineto //RestWid neg 0 rlineto
+      closepath fill
+    }bind def
+
+    Encoding 45/crest put       /crest BaseFontProc
+
+    Encoding 47/bfermata put
+    /bfermata{
+      0 0 -150 -100 850 700 setcachedevice
+      1 FermataScaleFactor sub 271 mul 0 translate
+      FermataScaleFactor dup scale
+      271 600 translate 0 -40//.offround exec
+      80 0 360 arc fill 0 0 485 180 0 arc
+      0 360 180 500 650 0 0 //ec exec fill
+    }bind def
+
+    Encoding 48/longrest put    /longrest BaseFontProc
+
+    Encoding 49/wbreve put
+    /wbreve{
+      BreveDict begin
+        /doublebreve false def
+        /DoDownStem false def
+        /DoUpStem false def
+        /White true def
+      end
+      //breve exec
+    }bind def
+
+    Encoding 50/wsemibreve put
+    /wsemibreve{
+      705 MinimRight add 0 100 MinimRight add -40 550 MinimRight add 440 setcachedevice
+      MinimDict begin
+        systemdict/setstrokeadjust known{true setstrokeadjust}if
+        x0 x1 add 2 div y0 y1 add 2 div moveto
+        x1 y1 lineto x2 y2 lineto x3 y3 lineto x0 y0 lineto
+        closepath
+
+        xi3 xi2 add 2 div yi3 yi2 add 2 div moveto
+        xi2 yi2 lineto xi1 yi1 lineto xi0 yi0 lineto xi3 yi3 lineto
+        closepath fill
+      end % MinimDict
+    }bind def
+
+    Encoding 51/wuminim put
+    /wuminim{
+      705 MinimRight add 0 150 MinimRight add -40 550 MinimRight add 1600 setcachedevice
+      MinimDict begin
+        systemdict/setstrokeadjust known{true setstrokeadjust}if
+        x2 y2 30 sub moveto x2 1600 lineto StemWidth setlinewidth stroke
+        x0 x1 add 2 div y0 y1 add 2 div moveto
+        x1 y1 lineto x2 y2 lineto x3 y3 lineto x0 y0 lineto
+        closepath
+
+        xi3 xi2 add 2 div yi3 yi2 add 2 div moveto
+        xi2 yi2 lineto xi1 yi1 lineto xi0 yi0 lineto xi3 yi3 lineto
+        closepath fill
+      end % MinimDict
+    }bind def
+
+    Encoding 52/wdminim put
+    /wdminim{
+      705 MinimRight add 0 150 MinimRight add -1200 550 MinimRight add 440 setcachedevice
+      MinimDict begin
+        systemdict/setstrokeadjust known{true setstrokeadjust}if
+        x0 y0 30 add moveto x0 -1200 lineto StemWidth setlinewidth stroke
+        x0 x1 add 2 div y0 y1 add 2 div moveto
+        x1 y1 lineto x2 y2 lineto x3 y3 lineto x0 y0 lineto
+        closepath
+
+        xi3 xi2 add 2 div yi3 yi2 add 2 div moveto
+        xi2 yi2 lineto xi1 yi1 lineto xi0 yi0 lineto xi3 yi3 lineto
+        closepath fill
+      end % MinimDict
+    }bind def
+
+    Encoding 53/buminim put
+    Encoding 54/bdminim put
+
+    Encoding 55/buminim put
+    /buminim{
+      705 MinimRight add 0 150 MinimRight add -40 550 MinimRight add 1600 setcachedevice
+      MinimDict begin
+        systemdict/setstrokeadjust known{true setstrokeadjust}if
+        x2 y2 30 sub moveto x2 1600 lineto StemWidth setlinewidth stroke
+
+        x0 x1 add 2 div y0 y1 add 2 div moveto
+        x1 y1 lineto x2 y2 lineto x3 y3 lineto x0 y0 lineto
+        closepath fill
+      end % MinimDict
+    }bind def
+
+    Encoding 56/bdminim put
+    /bdminim{
+      705 MinimRight add 0 150 MinimRight add -1200 550 MinimRight add 440 setcachedevice
+      MinimDict begin
+        systemdict/setstrokeadjust known{true setstrokeadjust}if
+        x0 y0 30 add moveto x0 -1200 lineto StemWidth setlinewidth stroke
+        x0 x1 add 2 div y0 y1 add 2 div moveto
+        x1 y1 lineto x2 y2 lineto x3 y3 lineto x0 y0 lineto
+        closepath  fill
+      end % MinimDict
+    }bind def
+
+
+    Encoding 57/bbreve put
+    /bbreve{
+      BreveDict begin
+        /doublebreve false def
+        /DoDownStem false def
+        /DoUpStem false def
+        /White false def
+      end
+      //breve exec
+    }bind def
+
+    Encoding 58/bsemibreve put
+    /bsemibreve{
+      705 MinimRight add 0 100 -40 550 MinimRight add 440 setcachedevice
+      MinimDict begin
+        systemdict/setstrokeadjust known{true setstrokeadjust}if
+        x0 x1 add 2 div y0 y1 add 2 div moveto
+        x1 y1 lineto x2 y2 lineto x3 y3 lineto x0 y0 lineto
+        closepath fill
+      end % MinimDict
+    }bind def
+
+
+    Encoding 60/cclef put
+    /cclef{
+      800 0 0 -100 250 900 setcachedevice
+      systemdict/setstrokeadjust known{true setstrokeadjust}if
+      40 setlinewidth
+      20 -100 moveto 0 1000 rlineto stroke
+      2{
+        20 100 moveto 230 dup 0 rlineto 0 200 rlineto neg 0 rlineto
+        closepath fill
+        0 400 translate
+      }repeat
+    }bind def
+
+    Encoding 61/leger put
+    /leger{
+      IntProcs begin
+        0 0 setcharwidth  true setstrokeadjust
+        40 setlinewidth 100 MinimRight add 200 Pm 600 MinimRight add 200 Pl stroke
+      end
+    }bind def
+
+    Encoding 62/fclef put
+    /fclef{
+      800 0 -230 -600 230 800 setcachedevice
+      systemdict/setstrokeadjust known{true setstrokeadjust}if
+      40 setlinewidth
+      20 -600 moveto 0 1200 rlineto stroke
+      2{
+        20 100 moveto 230 dup 0 rlineto 0 200 rlineto -2 mul 0 rlineto
+        0 -200 rlineto
+        closepath fill
+        0 400 translate
+      }repeat
+    }bind def
+
+    Encoding 63/hdot put
+    /hdot{0 0 0 0 0 0 setcachedevice}bind def
+
+    Encoding 64/barsingle put   /barsingle BaseFontProc
+    Encoding 65/bardouble put   /bardouble BaseFontProc
+    Encoding 66/barthick put    /barthick BaseFontProc
+    Encoding 67/stave1 put      /stave1 BaseFontProc
+    Encoding 70/stave10 put     /stave10 BaseFontProc
+    Encoding 73/repeatdots put  /repeatdots BaseFontProc
+
+    Encoding 74/ustem put
+    /ustem{
+      0 0 320 MinimRight add -40 380 MinimRight add 1600 setcachedevice
+      MinimDict begin
+        systemdict/setstrokeadjust known{true setstrokeadjust}if
+        x2 y2 30 sub moveto x2 1600 lineto StemWidth setlinewidth stroke
+      end % MinimDict
+    }bind def
+
+    Encoding 75/dstem put
+    /dstem{
+      0 0 310 MinimRight add -1200 390 MinimRight add 440 setcachedevice
+      MinimDict begin
+        systemdict/setstrokeadjust known{true setstrokeadjust}if
+        x0 y0 30 add moveto x0 -1200 lineto StemWidth setlinewidth stroke
+      end % MinimDict
+    }bind def
+
+    Encoding 76/cnh put         /cnh BaseFontProc
+
+    Encoding 77/wsemibreve put  % copy of wsemibreve, as this is also minim notehead
+
+    Encoding 81/imordent put
+    /imordent{
+      0 0 -20 -50 780 450 setcachedevice
+      2{
+        40 setlinewidth
+        0 0 moveto 200 400 rlineto stroke
+        200 400 moveto -75 -150 rlineto 150 -250 rlineto
+        currentpoint 75 150 rlineto 200 400 lineto -75 -150 rlineto gsave stroke grestore fill
+        moveto 200 400 rlineto stroke
+        275 0 translate
+      }repeat
+    }bind def
+
+    Encoding 91/bardotted put    /bardotted BaseFontProc
+    Encoding 93/little8 put
+    /little8{
+      /InstallDict where{pop InstallDict/ItalicFont get}{/Times-Italic findfont}ifelse
+      700 scalefont setfont
+      0 190 2 copy moveto
+      (8)stringwidth(8)true charpath flattenpath pathbbox setcachedevice
+      moveto(8)show
+    }bind def
+
+    Encoding 94/uquaver put
+    /uquaver{
+      705 MinimRight add 0 150 MinimRight add -40 550 MinimRight add 100 add 1600 setcachedevice
+      MinimDict begin
+        systemdict/setstrokeadjust known{true setstrokeadjust}if
+        x2 y2 30 sub moveto x2 1600 lineto
+        250 -400 250 -400 100 -700 rcurveto
+        StemWidth setlinewidth stroke
+
+        x0 x1 add 2 div y0 y1 add 2 div moveto
+        x1 y1 lineto x2 y2 lineto x3 y3 lineto x0 y0 lineto
+        closepath fill
+      end % MinimDict
+    }bind def
+
+    Encoding 118/d1 put         /d1 BaseFontProc
+    Encoding 119/d4 put         /d4 BaseFontProc
+    Encoding 120/u4 put         /u4 BaseFontProc
+    Encoding 121/l1 put         /l1 BaseFontProc
+    Encoding 122/r1 put         /r1 BaseFontProc
+    Encoding 123/bs put         /bs BaseFontProc
+    Encoding 124/ds put         /ds BaseFontProc
+    Encoding 125/fs put         /fs BaseFontProc
+    Encoding 126/us put         /us BaseFontProc
+
+    Encoding 132/barshort put
+    /barshort{
+      600 0 0 0 50 400 setcachedevice
+      20 0 //Pm exec 20 400 //Pl exec 40 setlinewidth stroke
+    }bind def
+
+    Encoding 133/barshortbelow put
+    /barshortbelow{
+      600 0 0 -400 60 20 setcachedevice
+      20 0 //Pm exec 20 -400 //Pl exec 40 setlinewidth stroke
+    }bind def
+
+    Encoding 139/sbra put
+    /sbra{
+      350 0 0 -350 250 750 setcachedevice
+      250 -330 //Pm exec 40 -330 //Pl exec 40 750 //Pl exec 250 750 //Pl exec
+      50 setlinewidth stroke
+    }bind def
+
+    Encoding 140/sket put
+    /sket{
+      330 0 -50 -350 200 750 setcachedevice
+      -80 -330 //Pm exec 130 -330 //Pl exec 130 750 //Pl exec -80 750 //Pl exec
+      50 setlinewidth stroke
+    }bind def
+
+    Encoding 141/rbra put       /rbra BaseFontProc
+    Encoding 142/rket put       /rket BaseFontProc
+    Encoding 164/r.05 put       /r.05 BaseFontProc
+    Encoding 174/Oldmrest put
+    /Oldmrest/mrest load def
+
+    Encoding 175/Oldsbrest put  /Oldsbrest BaseFontProc
+    /Oldsbrest/sbrest load def
+
+    Encoding 176/OldBrest put
+    /OldBrest/brest load def
+
+    Encoding 187/bardashed put  /bardashed BaseFontProc
+    Encoding 199/endash put
+    /endash{
+      /InstallDict where{pop InstallDict/RomanFont get}{/Times-Roman findfont}ifelse
+      1000 scalefont setfont
+      0 0 moveto(\261)stringwidth(\261)true charpath flattenpath pathbbox setcachedevice
+      newpath 0 0 moveto(\261) show
+    }bind def
+
+    Encoding 200/hyphen put
+    /hyphen{
+      /InstallDict where{pop InstallDict/RomanFont get}{/Times-Roman findfont}ifelse
+      1000 scalefont setfont
+      0 0 moveto(-)stringwidth(-)true charpath flattenpath pathbbox setcachedevice
+      newpath 0 0 moveto(-) show
+    }bind def
+
+    Encoding 206/logo put       /logo BaseFontProc
+    Encoding 208/b10000 put     /b10000 BaseFontProc
+    Encoding 209/enddbar put    /enddbar BaseFontProc
+
+    Encoding 233/dottedcross put
+    /dottedcross{
+      5 dict begin
+        /height 660 def
+        /lsb 40 def
+        height lsb 2 mul add 0
+        lsb 0 lsb height add height setcachedevice
+
+
+        64 setlinewidth true setstrokeadjust
+
+        lsb 0 translate
+        %cross
+        height 2 div 0 moveto 0 height rlineto stroke
+        0 height 2 div moveto height 0 rlineto stroke
+
+        % dots
+        height 2 div dup translate
+        45 rotate
+        4{newpath height 0.45 mul 0 50 0 350 arc fill 90 rotate}repeat
+      end
+    }bind def
+
+
+    Encoding 234/biprolrev put
+    /biprolrev{
+      1200 0 0 0 800 1600 setcachedevice
+      IntProcs begin pbar iprolrev end
+    }bind def
+
+    Encoding 235/doublewbreve+ustem put
+    /doublewbreve+ustem{
+      BreveDict begin
+        /doublebreve true def
+        /DoDownStem false def
+        /DoUpStem true def
+        /White true def
+      end
+      //breve exec
+    }bind def
+
+    Encoding 236/doublebbreve+ustem put
+    /doublebbreve+ustem{
+      BreveDict begin
+        /doublebreve true def
+        /DoDownStem false def
+        /DoUpStem true def
+        /White false def
+      end
+      //breve exec
+    }bind def
+
+    Encoding 237/doublewbreve+dstem put
+    /doublewbreve+dstem{
+      BreveDict begin
+        /doublebreve true def
+        /DoUpStem false def
+        /DoDownStem true def
+        /White true def
+      end
+      //breve exec
+    }bind def
+
+    Encoding 238/doublebbreve+dstem put
+    /doublebbreve+dstem{
+      BreveDict begin
+        /doublebreve true def
+        /DoUpStem false def
+        /DoDownStem true def
+        /White false def
+      end
+      //breve exec
+    }bind def
+
+    Encoding 239/pprol put
+    /pprol{
+      1200 0 0 400 800 1200 setcachedevice
+      IntProcs begin pprol end
+    }bind def
+
+    Encoding 240/iprol put
+    /iprol{
+      1200 0 0 400 800 1200 setcachedevice
+      IntProcs begin iprol end
+    }bind def
+
+    Encoding 241/dpprol put
+    /dpprol{
+      1200 0 0 400 800 1200 setcachedevice
+      IntProcs begin pprol pdot end
+    }bind def
+
+    Encoding 242/diprol put
+    /diprol{
+      1200 0 0 400 800 1200 setcachedevice
+      IntProcs begin pdot iprol end
+    }bind def
+
+    Encoding 243/bpprol put
+    /bpprol{
+      1200 0 0 0 800 1600 setcachedevice
+      IntProcs begin pbar pprol end
+    }bind def
+
+    Encoding 244/biprol put
+    /biprol{
+      1200 0 0 0 800 1600 setcachedevice
+      IntProcs begin pbar iprol end
+    }bind def
+
+    Encoding 245/Vcr put        /Vcr BaseFontProc
+
+    Encoding 246/swallowtail put
+    /swallowtail{
+      0 0 -500 -200 1000 1000 setcachedevice
+      MinimDict/MinimCentre get -200 translate
+      5 5 scale
+      2{
+        %DrawRead arguments: -tr -113, -112, -sc 1.000000
+        0 23 moveto
+        -3 20 -3 12 -3 1 curveto
+        -1 -1 1 -1 3 1 curveto
+        5 13 5 49 28 56 curveto
+        31 57 30 61 28 60 curveto
+        3 54 2 28 0 23 curveto
+
+        closepath fill
+        -1 1 scale
+      }repeat
+    }bind def
+
+    Encoding 247/nhdot put      % hdot for use with diamond notes
+    /nhdot{
+      0 0 -20 115 150 285 setcachedevice
+      45 200//.offround exec 50 0 360 arc fill
+    }bind def
+
+    Encoding 248/wbreve+ustem put
+    /wbreve+ustem{
+      BreveDict begin
+        /doublebreve false def
+        /DoDownStem false def
+        /DoUpStem true def
+        /White true def
+      end
+      //breve exec
+    }bind def
+
+    Encoding 249/bbreve+ustem put
+    /bbreve+ustem{
+      BreveDict begin
+        /doublebreve false def
+        /DoDownStem false def
+        /DoUpStem true def
+        /White false def
+      end
+      //breve exec
+    }bind def
+
+    Encoding 250/wbreve+dstem put
+    /wbreve+dstem{
+      BreveDict begin
+        /doublebreve false def
+        /DoUpStem false def
+        /DoDownStem true def
+        /White true def
+      end
+      //breve exec
+    }bind def
+
+    Encoding 251/bbreve+dstem put
+    /bbreve+dstem{
+      BreveDict begin
+        /doublebreve false def
+        /DoUpStem false def
+        /DoDownStem true def
+        /White false def
+      end
+      //breve exec
+    }bind def
+
+    Encoding 252/swbreve+ustem put
+    /swbreve+ustem{
+      BreveDict begin
+       /doublebreve false def
+        /DoDownStem false def
+        /DoUpStem true def/White true def
+        /y6 1200 def
+      end
+      //breve exec
+      BreveDict/y6 1600 put
+    }bind def
+
+    Encoding 253/nhdota put      % hdot for use above staff
+    /nhdota{
+      0 0 -20 115 150 285 setcachedevice
+      65 200//.offround exec 65 0 360 arc fill
+    }bind def
+
+    Encoding 254/swuminim put
+    /swuminim{
+      705 MinimRight add 0 150 MinimRight add -40 550 MinimRight add 1600 setcachedevice
+      MinimDict begin
+        systemdict/setstrokeadjust known{true setstrokeadjust}if
+        x2 y2 30 sub moveto x2 1200 lineto StemWidth setlinewidth stroke
+        x0 x1 add 2 div y0 y1 add 2 div moveto
+        x1 y1 lineto x2 y2 lineto x3 y3 lineto x0 y0 lineto
+        closepath
+
+        xi3 xi2 add 2 div yi3 yi2 add 2 div moveto
+        xi2 yi2 lineto xi1 yi1 lineto xi0 yi0 lineto xi3 yi3 lineto
+        closepath fill
+      end % MinimDict
+    }bind def
+
+    Encoding 255/sbuminim put
+    /sbuminim{
+      705 MinimRight add 0 150 MinimRight add -40 550 MinimRight add 1600 setcachedevice
+      MinimDict begin
+        systemdict/setstrokeadjust known{true setstrokeadjust}if
+        x2 y2 30 sub moveto x2 1200 lineto StemWidth setlinewidth stroke
+
+        x0 x1 add 2 div y0 y1 add 2 div moveto
+        x1 y1 lineto x2 y2 lineto x3 y3 lineto x0 y0 lineto
+        closepath fill
+      end % MinimDict
+    }bind def
+
+  end end % CharacterDefs and IntProcs
+
+currentdict dup/FontName get exch end definefont pop
+
+
+
+
+
+%
+%
+%/str( ~ )dup 0 94 put dup 2 94 put def
+%/proc{
+%  moveto gsave(FFF)show grestore str show
+%}bind def
+%
+%/Dunstable04  10 selectfont 50 750 proc
+%50 700 moveto ( )dup 0 234 put show
+%50 690 moveto ( )dup 0 244 put show
+%
+%/Dunstable04  50 selectfont 50 450 proc
+%/Dunstable04 100 selectfont 50 150 proc
+%
+%showpage

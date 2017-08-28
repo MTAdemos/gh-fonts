@@ -1,0 +1,444 @@
+% Byrd-05  for Byrd Edition
+% Based on Base-Music27m11 and Byrd-04
+%
+
+/Base-Music27m11 findfont dup maxlength 5 add dict begin
+{1 index /FID ne{def}{pop pop}ifelse}forall
+
+[
+/WorkingDict 10
+/nBBox 50
+/nMetrics 50
+/nVMetrics 15
+/nCharacterDefs 50
+counttomark 2 idiv{dict 2 copy def exch/DictName exch put}repeat pop
+
+
+/Encoding dup load 256 array copy
+  dup 1/neume put
+  dup 2/blackbreve put
+  dup 3/long put
+  dup 4/3blackbreve put
+def
+
+% Change global details
+/cnh{
+  601 345 moveto
+  552 431 374 450 236 370 curveto
+  98 290 49 141 99 55 curveto
+  148 -31 326 -50 464 30 curveto
+  602 110 651 259 601 345 curveto
+  closepath
+}bind def
+
+userdict begin/a 15 def/mnh_dx a 30 cos mul def/mnh_dy a 30 sin mul def end
+/mnh{
+  601 345 moveto
+  552 431 374 450 236 370 curveto
+  98 290 49 141 99 55 curveto
+  148 -31 326 -50 464 30 curveto
+  602 110 651 259 601 345 curveto
+  closepath
+  304 58 moveto
+  304 58 lineto
+  256 31 195 mnh_dx sub 47 mnh_dy sub 167 mnh_dx sub 95 mnh_dy sub curveto
+  140 mnh_dx sub 143 mnh_dy sub 156 204 204 232 curveto
+  395 342 lineto
+  442 369 504 mnh_dx add 353 mnh_dy add 531 mnh_dx add 305 mnh_dy add curveto
+  559 mnh_dx add 257 mnh_dy add 542 196 495 168 curveto
+  closepath
+}bind def
+
+userdict begin/bnh_dy 32 15 add def end
+/dcurveto/curveto load def
+
+/bnh{
+  -5 0 translate
+  1.1 1 scale
+  650 200 Mt
+  650 316 bnh_dy sub 516 410 350 410 curveto
+  184 410 50 316 bnh_dy sub 50 200 curveto
+  50 84 bnh_dy add 184 -10 350 -10 curveto
+  516 -10 650 84 bnh_dy add 650 200 curveto
+  closepath
+  WorkingDict/CTM matrix currentmatrix put
+  350 200 translate 1.2 1 scale 11 5 add rotate
+  100 0 Mt
+  0 -70 100 0 180 arcn
+  0 70 100 180 0 arcn closepath
+
+  WorkingDict/CTM get setmatrix
+}bind def
+
+
+
+% add new FontName
+
+/FontName/Byrd-05 def
+
+% add revised versions
+
+nBBox begin
+  /neume{40 0 440 400}def
+  /breve{78 120 add -160 808 120 add 560}def
+  /long{78 120 add -160 808 120 add 1360}def
+  /blackbreve{78 120 add -160 808 120 add 560}def
+  /3blackbreve{78 120 add -160 808 3 mul 120 add 560 3 mul}def
+  /OldBrest{100 0 300 400}def
+  /brest{-100 0 500 400}def
+  /flat{28 -106 431 875}def
+  /sharp{100 -420 500 820}def
+  /natural{30 -406 350 805}def
+  /barsingle{-60 -20 20 1620}def
+  /bardotted{-60 -20 20 1620}def
+  /bardouble{-80 -20 200 1620}def
+  /cnh{79 -21 621 421}def
+  /mnh{79 -21 621 421}def
+  /usquaver{50 -21 1100 1650}def
+  /uquaver{79 -21 1050 1650}def
+  /ucrotchet{79 -21 650 1580}def
+  /uminim{79 -21 650 1580}def
+  /semibreve{-150 -10 710 410}def
+  /C{76 -36 808 789}def
+  /cut{-1 -200 747 1000}def
+  /bassclef{236 158 1424 1617}def
+  /altoclef{107 -26 1145 1629}def
+  /trebleclef{98 -510 1131 2283}def
+  /little8{45 229 435 719}def
+end % nBBox
+
+nMetrics begin
+  /neume 500 def
+  /blackbreve 1340 def
+  /3blackbreve 2340 def
+  /breve 1340 def
+  /long 1340 def
+  /OldBrest 660 def
+  /brest 660 def
+end % nMetrics
+
+nVMetrics begin
+end % nVMetrics
+
+nCharacterDefs begin
+
+/neume{
+  40 0 moveto 400 0 rlineto 0 400 rlineto -400 0 rlineto closepath fill
+}bind def
+
+/trebleclef{
+593 240 moveto
+534 279 503 326 499 460 curveto
+499 633 659 683 769 680 curveto
+852 679 937 690 994 512 curveto
+1089 125 858 41 633 28 curveto
+426 34 267 138 271 499 curveto
+269 751 476 871 680 1052 curveto
+935 1317 983 1521 994 1804 curveto
+989 2008 916 2201 774 2283 curveto
+507 2121 426 1791 496 1442 curveto
+867 -263 lineto
+887 -373 726 -436 667 -436 curveto
+616 -436 586 -421 535 -382 curveto
+647 -351 645 -232 582 -161 curveto
+516 -114 432 -114 385 -161 curveto
+330 -228 318 -295 401 -381 curveto
+472 -444 534 -501 671 -509 curveto
+777 -515 973 -410 942 -258 curveto
+570 1445 lineto
+497 1786 715 2006 857 2079 curveto
+888 2032 920 1961 927 1820 curveto
+924 1458 786 1416 515 1191 curveto
+350 1057 94 814 98 578 curveto
+106 4 452 -27 633 -35 curveto
+842 -54 1209 93 1115 544 curveto
+1052 795 917 830 755 829 curveto
+528 826 401 664 405 444 curveto
+405 279 497 208 574 177 curveto
+635 155 633 208 593 240 curveto
+closepath fill
+}bind def
+
+userdict begin/alto_dx -50 def/alto_dy 20 def end
+
+/altoclef{
+  1.41 dup Sc -294 15 Tr 490 -10 Pm
+   gsave
+     -120 0 rmoveto FontMatrix 0 get 30 mul 0.3 div dup 1 gt{pop 1}if
+     dup 0.5 le{pop 0.5}if 120 mul neg dup abs
+     0 Rl 0 1130 Rl 0 Rl Cp fill
+   grestore
+  45 0 dtransform exch ceiling exch idtransform rmoveto
+  40 0 Rl 0 1130 Rl -40 0 Rl Cp fill
+  2{
+    570 550 Mt
+    570 610 Lt
+    657 641 675 740 690 820 Ct
+    730 820 Lt
+    729 697 862 625 910 642 Ct
+    948 655 1020 alto_dx add 672 1020 alto_dx add 840 Ct
+    1020 alto_dx add 853 1003 1080 alto_dy add 850 1080 alto_dy add Ct
+    825 1080 alto_dy add 774 1074 735 1030 Ct
+    789 1011 802 939 780 915 Ct
+    735 867 653 904 648 955 Ct
+    639 1040 768 1120 alto_dy add 890 1120 alto_dy add Ct
+    933 1120 alto_dy add 1156 alto_dx add  1097 1156 alto_dx add 850 Ct
+    1156 alto_dx add 577 852 561 748 644 Ct
+    695 550 Lt
+    Cp fill
+    1 -1 Sc 0 -1107 Tr
+  }repeat
+}bind def
+
+
+/bassclef{
+1200 1000 80 0 360 arc fill
+1200 1400 80 0 360 arc fill
+-551 0 translate
+795 297 moveto
+1136 398 1554 700 1562 1192 curveto
+1551 1422 1433 1635 1100 1607 curveto
+789 1584 786 1304 812 1198 curveto
+840 1111 882 1054 982 1052 curveto
+1038 1052 1094 1108 1094 1187 curveto
+1092 1288 1003 1310 968 1310 curveto
+921 1310 879 1290 868 1215 curveto
+842 1276 838 1548 1111 1567 curveto
+1297 1570 1383 1347 1386 1187 curveto
+1386 795 1120 505 789 337 curveto
+764 328 772 283 795 297 curveto
+closepath fill
+}bind def
+
+/sharp{
+  300 200 translate
+  1 setlinecap 40 10 add setlinewidth
+  -100 -600 Pm 0 1120 Rl stroke
+  100 -520 Pm 0 1120 Rl stroke
+  2{
+   0 285 Mt -200 200 -200 115 20 arcto
+   -200 30 0 115 20 arcto
+   200 200 200 285 20 arcto
+   200 370 0 285 20 arcto fill
+   16{pop}repeat
+   0 -400 translate
+  }repeat
+}bind def
+
+/flat{      % new
+  -80 30 sub 0 translate % adjustment not found in readdraw cmd line
+  138 875 moveto
+  138 -74 lineto
+  139 -94 141 -106 163 -105 curveto
+  659 42 659 635 203 402 curveto
+  203 875 lineto
+  138 875 lineto
+  closepath
+  203 -16 moveto
+  203 293 lineto
+  505 472 444 72 203 -16 curveto
+  closepath
+  fill
+}bind def
+
+/natural{
+  -75 -645 translate
+  165 1110 Mt 135 1420 30 0 180 arc
+  105 460 365 570 20 3 copy pop 7 2 roll arcto 4{pop}repeat lineto
+  395 269 30 180 360 arc
+  425 1220 165 1110 20 arcto 4{pop}repeat
+  165 930 Mt 365 1015 Lt 365 750 Lt 165 665 Lt
+  closepath fill
+}bind def
+
+/barsingle{
+  systemdict/setstrokeadjust known{
+    40 setlinewidth -30 0 moveto 40 0 rlineto
+    -20 -90 0.2 0{dup -20 exch instroke{exit}{pop}ifelse}for
+    -20 1600 moveto 40 0 rlineto
+    -20 1690 -0.2 1600{dup -20 exch instroke{exit}{pop}ifelse}for
+    newpath
+    }
+    {-20 -20 -20 1620
+  }ifelse
+  moveto lineto 80 setlinewidth stroke
+}bind def
+
+/barthick{
+  systemdict/setstrokeadjust known{
+    40 setlinewidth -30 0 moveto 240 0 rlineto
+    100 -90 0.2 0{dup -20 exch instroke{exit}{pop}ifelse}for
+    -20 1600 moveto 240 0 rlineto
+    100 1690 -0.2 1600{dup -20 exch instroke{exit}{pop}ifelse}for
+    newpath
+    }
+    {100 -20 100 1620
+  }ifelse
+  moveto lineto 200 setlinewidth stroke
+}bind def
+
+/bardotted{
+  systemdict/setstrokeadjust known{
+    40 setlinewidth -30 0 moveto 40 0 rlineto
+    -20 -90 0.2 0{dup -20 exch instroke{exit}{pop}ifelse}for
+    -20 1600 moveto 40 0 rlineto
+    -20 1690 -0.2 1600{dup -20 exch instroke{exit}{pop}ifelse}for
+    newpath
+    }
+    {-20 -20 -20 1620
+  }ifelse
+  moveto lineto 80 setlinewidth[200 200]80 setdash stroke
+}bind def
+
+/bardouble{
+  systemdict/setstrokeadjust known{
+    40 setlinewidth -30 0 moveto 40 0 rlineto
+    -20 -90 0.2 0{dup -20 exch instroke{exit}{pop}ifelse}for
+    -20 1600 moveto 40 0 rlineto
+    -20 1690 -0.2 160{dup -20 exch instroke{exit}{pop}ifelse}for
+    newpath
+    }
+    {-20 -20 -20 1620
+  }ifelse
+  80 setlinewidth
+  gsave
+    4 copy -20 0 translate moveto lineto stroke
+  grestore
+  180 0 translate moveto lineto stroke
+}bind def
+
+/breve{
+  78 120 add 0 translate
+  //WorkingDict begin
+  60 0 dtransform round exch round exch idtransform pop/x60 exch def
+  60 400 Mt 60 560 Lt x60 neg 0 Rl 0 560 160 add neg Rl x60 0 Rl
+  60 0 Lt 670 0 Lt 670 -160 Lt x60 0 Rl 0 560 160 add Rl x60 neg 0 Rl 670 400 Lt
+  60 300 Mt 670 300 Lt 670 100 Lt 60 100 Lt closepath fill
+  end
+}bind def
+
+/blackbreve{
+  78 120 add 0 translate
+  //WorkingDict begin
+  60 0 dtransform round exch round exch idtransform pop/x60 exch def
+  60 400 Mt 60 560 Lt x60 neg 0 Rl 0 560 160 add neg Rl x60 0 Rl
+  60 0 Lt 670 0 Lt 670 -160 Lt x60 0 Rl 0 560 160 add Rl x60 neg 0 Rl 670 400 Lt
+  closepath fill
+  end
+}bind def
+
+/long{
+  78 120 add 0 translate
+  //WorkingDict begin
+  60 0 dtransform round exch round exch idtransform pop/x60 exch def
+  60 400 Mt 60 560 Lt x60 neg 0 Rl 0 560 160 add neg Rl x60 0 Rl
+  60 0 Lt 670 0 Lt 670 -160 Lt x60 0 Rl 0 560 160 add Rl
+  0 800 Rl
+  x60 neg 0 Rl
+  0 -800 Rl
+  670 400 Lt
+  60 300 Mt 670 300 Lt 670 100 Lt 60 100 Lt closepath fill
+  end
+}bind def
+
+/3blackbreve{
+  78 120 add 0 translate
+  //WorkingDict begin
+  60 0 dtransform round exch round exch idtransform pop/x60 exch def
+  3{
+    60 400 Mt 60 560 Lt x60 neg 0 Rl 0 560 160 add neg Rl x60 0 Rl
+    60 0 Lt 670 0 Lt 670 -160 Lt x60 0 Rl 0 560 160 add Rl x60 neg 0 Rl 670 400 Lt
+    closepath fill
+    670 200 translate
+  }repeat
+  end
+}bind def
+
+
+/sbra{250 -330 Pm 40 -330 Pl 40 750 Pl 250 750 Pl 50 Slw St}bind def
+/sket{-80 -330 Pm 130 -330 Pl 130 750 Pl -80 750 Pl 50 Slw St}bind def
+/OldBrest{100 0 Mt 200 0 Rl 0 400 Rl -200 0 Rl closepath fill}bind def
+/brest{
+  //OldBrest exec 40 setlinewidth -100 0 -100 400 2{Pm 600 0 Rl stroke}repeat
+}bind def
+
+/cnh{//cnh exec fill}bind def
+/mnh{//mnh exec fill}bind def
+/uminim{//mnh exec 5 0 translate//ustem exec fill}bind def
+/dminim{//mnh exec -5 0 translate//dstem exec fill}bind def
+/ucrotchet{//cnh exec 5 0 translate//ustem exec fill}bind def
+/dcrotchet{//cnh exec -5 0 translate//dstem exec fill}bind def
+/dsquaver{//cnh exec -5 0 translate//dstem exec fill 5 20 translate dsqtail 0 380 translate dsqtail}bind def
+/usquaver{//cnh exec 5 0 translate//ustem exec fill usqtail 0 -400 translate usqtail}bind def
+/uquaver{//cnh exec 5 0 translate//ustem exec fill 1 41 42 div scale uqtail}bind def
+/dquaver{//cnh exec -5 0 translate//dstem exec fill 0 0 translate dqtail}bind def
+
+
+/semibreve{-30 0 translate //bnh exec fill}bind def
+/C{
+  0.9 1 scale
+  898 393 moveto
+  899 76 773 -42 451 -36 curveto
+  269 -31 90 109 85 393 curveto
+  95 641 319 787 479 787 curveto
+  662 798 812 764 849 591 curveto
+  851 501 804 473 759 473 curveto
+  700 473 631 505 630 574 curveto
+  633 652 684 669 739 680 curveto
+  678 748 647 731 577 736 curveto
+  423 736 331 636 331 389 curveto
+  333 92 406 31 585 25 curveto
+  641 31 846 81 840 393 curveto
+  898 393 lineto
+  closepath fill
+}bind def
+
+/cut{
+  415 50 add -200 Mt 0 1200 Rl 60 setlinewidth stroke
+  //C exec
+}bdef
+
+/little8{
+  70 260 Tr 0.17 dup Sc 1.3 1 scale -88 0 Tr 1.13 1 Sc
+  680 1280 Mt -210 800 290 -90 610 -90 Ct 990 -90 1390 670 680
+  1280 Ct Cp 907 1510 Mt 1520 1580 1370 2590 1000 2590 Ct 720 2590 480 2110
+  640 1820 Ct 970 1510 Lt Cp 600 1340 Mt 100 1920 500 2700 1050 2700 Ct 1610
+  2700 1795 1720 1030 1440 Ct 1690 740 1170 -180 520 -180 Ct -130 -180 -300
+  1000 600 1340 Ct fill
+}bind def
+
+end % nCharacterDefs
+
+/BuildChar{
+  1 index/Encoding get exch get
+  1 index/BuildGlyph get exec
+}bind def
+
+/BuildGlyph{
+   exch begin % fontdict
+     0 begin
+       /charname exch def
+       ExtraCharacterDefs charname 2 copy known{
+         get exec}
+         {pop pop
+         Metrics begin nMetrics begin charname load end end
+         nVMetrics charname known{
+         nVMetrics charname get}
+         {VMetrics charname known{
+            VMetrics charname get}
+              {0
+            }ifelse
+         }ifelse
+         BBox begin nBBox begin charname load end end exec
+         setcachedevice
+         CharacterDefs begin nCharacterDefs begin
+         charname load end end exec
+       }ifelse
+     end % fontdict
+   end % BuildChar dict
+}bind dup 2 3 dict put def
+
+currentdict dup/FontName get exch end definefont pop
+% End of font definition
+
+

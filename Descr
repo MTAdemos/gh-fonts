@@ -1,0 +1,42 @@
+This comprises four hand-written PostScript fonts for music. With the
+Music Fonts
+
+With the exception of Breath-02.ps, these all take a base font and alter it:
+the alterations are substantial, but this does provide a sensible set
+of defaults.
+
+They are all Type 3 fonts, which is the form for hand coding rather 
+than using the Type1 encoded method as what is here would make little 
+use of the Type1 machinery.
+
+They comprise:
+
+Breath-02.ps
+============
+A font for plainsong. The basic primitive for the noteheads is a 
+square, and a delicacy for modern versions of plainsong notation is 
+that the ratio of the height of that square to the separation of the 
+staff lines varies. Various basic values can be altered for the 
+relative sizes of the noteheads, of which  NeumeWidth is the most 
+fundamental. In this it is set to 250, where the staff line period 
+is 400.
+
+Byrd05.ps
+=========
+A font emulating the work of the last of the British music engravers, 
+cut originally to do the volumes of the Complete Works of William Byrd 
+which were unfinished at his death.
+
+
+Dunstab04.ps
+============
+Something using diamond noteheads, based on 14th century English 
+notation
+
+Walsh01.ps
+==========
+Created for the BBC reconstruction of the first performance of 
+Handel's Water Music, this is a handwriting font, emulating the work 
+of one of Handel's copyists, which includes random variations in the 
+exact shapes of symbols to reflect the variations in this copyist's 
+work.

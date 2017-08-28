@@ -1,0 +1,926 @@
+%!
+%%BeginFont: Breath-02
+
+%Based on Breath-01. but with adjustments to allow curving or straight neumes
+
+systemdict/currentpacking known
+  {userdict/SavePacking currentpacking put true setpacking
+}if
+
+11 dict begin
+
+/FontName/Breath-02 def
+/FontType 3 def
+/FontMatrix[0.001 0 0 0.001 0 0]def
+/FontBBox[-500 -2000 2500 2000]def
+
+[
+/CharacterDefs 100
+/ExtraCharacterDefs 10
+/Tools 30
+/LegerDict 10
+/dstem_length_dict 4
+counttomark 2 idiv{dict 2 copy def exch/DictName exch put}repeat pop
+
+Tools begin
+  /NeumeWidth 250 def % this is the default width/height for a square neume
+
+  /DiamondWidth 180 NeumeWidth mul 250 div def
+
+  /NeumeWidth_0_rlineto{NeumeWidth 0 rlineto}bind def
+  /NeumeWidth_neg_0_rlineto{NeumeWidth neg 0 rlineto}bind def
+
+
+
+  /NeumeVstrokeWidth 40 def % width of vertical lines
+  /lsb 100 def
+
+  /scd{ % proc to sort out width/setcachedevice, argument is width of filled area
+    /widthfilled exch def
+    lsb 2 mul widthfilled add   % h disp
+    0 % v disp
+    lsb -1000 lsb widthfilled add 1200 % setcachedevice
+        pop pop pop pop setcharwidth
+  }bind def
+
+  /.onround{transform round exch round exch itransform}bind def
+  /.ondround{dtransform round exch round exch idtransform}bind def
+  /Pm{//.onround exec moveto}bind def
+
+  /wmtx matrix def
+  /EffectiveNeumeWidth NeumeWidth def % cludge to allow narrow horozontals where needed
+
+  /widestroke{
+    wmtx currentmatrix pop
+      1 setlinewidth true setstrokeadjust
+      NeumeVstrokeWidth EffectiveNeumeWidth scale stroke
+    wmtx setmatrix
+    /EffectiveNeumeWidth NeumeWidth store
+  }bind def
+
+
+  /DiamondNh{
+    gsave
+      DiamondWidth dup scale
+      0.66 1 rlineto 0.66 -1 rlineto -0.66 -1 rlineto closepath fill
+    grestore
+  }bind def
+
+  % dstem_length computes the length of a downstem, working
+  % from number of spaces (= staff line separations) in a
+  % font with NeumeWidth=400
+
+  /dstem_length{
+    dstem_length_dict begin
+      /dstem_length_arg exch def
+      /Effective_NeumeWidth NeumeWidth 2 mul 400 add 3 div def
+
+      dstem_length_arg Effective_NeumeWidth mul %desired length
+      200 div round 200 mul                     %adjusted to nearest half staff sep
+    end
+  }bind def
+
+  /liquescent_tail{
+    NeumeVstrokeWidth 2 div neg 0 rmoveto
+    NeumeWidth 400 div dup scale
+    0 -200 rmoveto currentpoint newpath moveto
+    400 0
+    480 -180
+    500 -200 rcurveto
+    20 -60 40 -40 20 20 rcurveto
+    -10 20 -100 580 -520 580 rcurveto
+    closepath fill
+  }bind def
+
+  /pes1_proc{
+    NeumeWidth 285 gt{/EffectiveNeumeWidth 285 store}if
+
+    lsb 200 NeumeWidth EffectiveNeumeWidth sub 2 div sub moveto
+    NeumeWidth_0_rlineto
+    0 400 rlineto
+    0 NeumeWidth EffectiveNeumeWidth sub rlineto
+    NeumeWidth_neg_0_rlineto
+    NeumeWidth 285 gt{/EffectiveNeumeWidth 285 store}if widestroke
+  }bind def
+
+
+  /n16_proc{
+    /OnLine exch def
+    % NB two different definitions -- if NeumeWidth much above 200 then
+    % the bottom has to drop to the staffline below.
+
+    % if the character sits on a staff line then the top is moved down a little and vice versa
+
+    gsave
+
+      NeumeWidth 220 lt{
+
+        NeumeWidth 160 gt{/EffectiveNeumeWidth 160 store}if
+
+        lsb 200 NeumeWidth EffectiveNeumeWidth sub 2 div sub moveto
+        NeumeWidth_0_rlineto
+        0 200 rlineto
+        0 NeumeWidth EffectiveNeumeWidth sub rlineto
+        NeumeWidth_neg_0_rlineto
+        NeumeWidth 160 gt{/EffectiveNeumeWidth 160 store}if widestroke
+        }
+        {
+
+        lsb 60 moveto NeumeWidth_0_rlineto
+        /dy0 190 def  % width of bottom blob
+        /dy1  85 def  % width of gap
+        /dy2 185 def  % width of top blob
+
+
+        0 dy0 dy1 add dy2 add rlineto
+        NeumeWidth_neg_0_rlineto
+        0 dy2 neg rlineto
+        NeumeWidth NeumeVstrokeWidth sub dup 0 rlineto
+        0 dy1 neg rlineto
+        neg 0 rlineto
+        closepath
+        fill
+      }ifelse
+    grestore
+  }bind def
+end % Tools
+
+/Encoding[256{/.notdef}repeat]def
+
+Encoding
+  dup 32/space put
+  dup 33/nhead1 put
+  dup 34/nhead2 put
+  dup 36/punctum put
+  dup 37/n01 put
+  dup 38/n02 put
+  dup 39/n03 put
+  dup 40/n04 put
+  dup 41/n05 put
+  dup 42/n06 put
+  dup 45/clivis1 put
+  dup 46/clivis2 put
+  dup 47/clivis3 put
+  dup 48/clivis4 put
+  dup 49/clivis5 put
+  dup 50/torculus1 put
+  dup 51/torculus2 put
+  dup 52/pes1 put
+  dup 53/pes2 put
+  dup 54/climacus put
+  dup 55/Fclef put
+  dup 56/Cclef put
+  dup 57/barsingle put
+  dup 58/barsinglebr put
+  dup 60/porr1 put
+  dup 61/leger put
+  dup 63/hdot put
+  dup 64/porr2 put
+  dup 65/n09 put
+  dup 66/n10 put
+  dup 68/mrest put
+  dup 69/porr4 put
+  dup 70/porr5 put
+  dup 71/porr6 put
+  dup 72/n12 put
+  dup 73/n13 put
+  dup 75/punctum2 put
+  dup 76/nstaff1 put
+  dup 77/nstaff10 put
+  dup 78/n14 put
+  dup 79/crest put
+  dup 83/n15 put
+  dup 84/n16 put
+  dup 85/n17 put
+  dup 86/n18 put
+  dup 87/n19 put
+  dup 88/n20 put
+  dup 89/n21 put
+  dup 90/climacus2 put
+  dup 91/n22 put
+  dup 92/n23 put
+  dup 93/n24 put
+  dup 94/n25 put
+  dup 95/n26 put
+  dup 96/n27 put
+  dup 97/n28 put
+  dup 98/climacus3 put
+  dup 99/n29 put
+  dup 100/n30 put
+  dup 101/n31 put
+  dup 102/n32 put
+  dup 103/n33 put
+  dup 104/clivis6 put
+  dup 105/n34 put
+  dup 106/n35 put
+  dup 107/n36 put
+  dup 108/n37 put
+  dup 109/n38 put
+  dup 110/n39 put
+  dup 111/n40 put
+  dup 112/n41 put
+  dup 118/d1 put
+  dup 119/d4 put
+  dup 120/u4 put
+  dup 121/l1 put
+  dup 122/r1 put
+  dup 123/bs put
+  dup 124/ds put
+  dup 125/fs put
+126/us put
+
+
+Tools begin
+  CharacterDefs begin
+    /.notdef{100 0 0 0 0 0 setcachedevice}bind def
+
+    /space{250 0 0 0 0 0 setcachedevice}bind def
+
+    /nhead1{
+      NeumeWidth scd
+      lsb 200 moveto NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /nhead2{
+      DiamondWidth 1.32 mul scd
+      lsb 200 moveto
+      DiamondNh
+    }bind def
+
+    /punctum{
+      NeumeWidth scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 2 dstem_length neg rlineto widestroke
+    }bind def
+
+    /n01{
+      NeumeWidth 2 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 2.5 dstem_length neg rlineto widestroke
+    }bind def
+
+    /n02{
+      NeumeWidth 2 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 400 rlineto
+      NeumeWidth_0_rlineto
+      0 2.5 dstem_length neg rlineto widestroke
+    }bind def
+
+    /n03{
+      NeumeWidth 2 mul scd
+      lsb 2 dstem_length neg moveto
+      currentpoint exch pop            % leaves y coord on stack
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 400 rlineto
+      NeumeWidth_0_rlineto
+      currentpoint pop % leaves current x coord (current y already on stack)
+      exch lineto widestroke
+    }bind def
+
+    /n04{
+      NeumeWidth 2 mul scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n05{
+      NeumeWidth 3 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 2 dstem_length neg rlineto widestroke
+    }bind def
+
+    /n06{
+      NeumeWidth 4 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 3 dstem_length neg rlineto widestroke
+    }bind def
+
+    /clivis1{
+      NeumeWidth 2 mul scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 -400 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /clivis2{
+      NeumeWidth 2 mul scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /clivis3{
+      NeumeWidth 3 mul scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /clivis4{
+      NeumeWidth 4 mul scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+
+    /clivis5{
+      NeumeWidth 2 mul scd
+      lsb 3 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 -800 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /torculus1{
+      NeumeWidth 3 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /torculus2{
+      NeumeWidth 5 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+
+    /pes1{
+      NeumeWidth scd
+      pes1_proc
+    }bind def
+
+    /pes2{
+      NeumeWidth scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 600 rlineto
+      NeumeWidth_neg_0_rlineto widestroke
+    }bind def
+
+    /climacus{
+      NeumeWidth lsb add DiamondWidth 1.6 mul 2 mul add scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 2 dstem_length neg rlineto widestroke
+
+      lsb DiamondWidth add NeumeWidth add 0 moveto
+      2{DiamondNh DiamondWidth 1.6 mul -200 rmoveto}repeat
+    }bind def
+
+    /porr1{
+      NeumeWidth 2 mul scd
+      lsb 200 moveto NeumeWidth 2 mul -200 rlineto widestroke
+    }bind def
+
+    /porr2{
+      NeumeWidth 3 mul scd
+      lsb 2 dstem_length neg moveto
+      currentpoint exch pop            % leaves y coord on stack
+      lsb 200 lineto
+      NeumeWidth 2 mul -200 rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      currentpoint pop % leaves current x coord (current y already on stack)
+      exch lineto widestroke
+    }bind def
+
+    /n09{
+      NeumeWidth 3 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 800 rlineto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n10{
+      NeumeWidth 2 mul scd
+      lsb 2 dstem_length neg moveto
+      currentpoint exch pop            % leaves y coord on stack
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      currentpoint pop % leaves current x coord (current y already on stack)
+      exch lineto widestroke
+    }bind def
+
+    /porr4{
+      NeumeWidth 2 mul scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth 2 mul -200 rlineto widestroke
+    }bind def
+
+    /porr5{
+      NeumeWidth 2 mul scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth 2 mul -400 rlineto widestroke
+    }bind def
+
+    /porr6{
+      NeumeWidth 3 mul scd
+      lsb 2.5 dstem_length moveto
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth 2 mul -200 rlineto widestroke
+    }bind def
+
+    /n12{
+      NeumeWidth 3 mul scd
+      lsb 3.5 dstem_length moveto
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n13{
+      NeumeWidth 2 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /punctum2{
+      NeumeWidth 2 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 2.5 dstem_length neg 2 copy rlineto neg 200 add rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n14{
+      NeumeWidth 3 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 800 rlineto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n15{
+      NeumeWidth scd
+      lsb 2 dstem_length neg moveto
+      currentpoint exch pop            % leaves y coord on stack
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      currentpoint pop % leaves current x coord (current y already on stack)
+      exch lineto widestroke
+    }bind def
+
+    /n16{
+      NeumeWidth scd
+      false n16_proc
+    }bind def
+
+    /n17{
+      NeumeWidth 3 mul scd
+      lsb 3 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 -400 rlineto
+      NeumeWidth_0_rlineto
+      0 -400 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n18{
+      NeumeWidth 3 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n19{
+      NeumeWidth 3 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n20{
+      NeumeWidth 3 mul scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 -600 rlineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n21{
+      NeumeWidth 3 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 400 rlineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /climacus2{
+      NeumeWidth lsb add DiamondWidth 1.6 mul 3 mul add scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 2 dstem_length neg rlineto widestroke
+
+      lsb DiamondWidth add NeumeWidth add 0 moveto
+      3{DiamondNh DiamondWidth 1.6 mul -200 rmoveto}repeat
+    }bind def
+
+    /n22{
+      NeumeWidth 4 mul scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 -400 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+
+    /n23{
+      400 0 setcharwidth
+      0 200 moveto
+      140 0 rlineto
+      0 450 rlineto
+      -140 0 rlineto
+      0 -100 rlineto
+      140 NeumeVstrokeWidth sub 0 rlineto
+      0 -250 rlineto
+      140 NeumeVstrokeWidth sub neg 0 rlineto
+      closepath fill
+    }bind def
+
+    /n24{
+      NeumeWidth lsb add DiamondWidth 1.7 mul 3 mul add scd
+      pes1_proc
+      lsb DiamondWidth add NeumeWidth add 400 moveto
+      3{DiamondNh DiamondWidth 1.6 mul -200 rmoveto}repeat
+    }bind def
+
+    /n25{
+      NeumeWidth lsb add DiamondWidth 1.7 mul 2 mul add scd
+      pes1_proc
+      lsb DiamondWidth add NeumeWidth add 200 moveto
+      2{DiamondNh DiamondWidth 1.6 mul -200 rmoveto}repeat
+    }bind def
+
+    /n26{
+      NeumeWidth lsb add DiamondWidth 1.7 mul 2 mul add scd
+      false n16_proc
+      lsb DiamondWidth add NeumeWidth add 200 moveto
+      2{DiamondNh DiamondWidth 1.6 mul -200 rmoveto}repeat
+    }bind def
+
+    /n27{
+      NeumeWidth 2 mul scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto currentpoint widestroke moveto
+      liquescent_tail
+    }bind def
+
+    /n28{
+      NeumeWidth 3 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 200 rlineto currentpoint widestroke moveto
+      liquescent_tail
+    }bind def
+
+    /climacus3{
+      NeumeWidth lsb add DiamondWidth 1.6 mul 4 mul add scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 2 dstem_length neg rlineto widestroke
+
+      lsb DiamondWidth add NeumeWidth add 0 moveto
+      4{DiamondNh DiamondWidth 1.6 mul -200 rmoveto}repeat
+    }bind def
+
+    /n29{
+      NeumeWidth 3 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 -400 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n30{
+      NeumeWidth 3 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 200 rlineto
+      NeumeWidth_0_rlineto
+      0 -600 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n31{
+      NeumeWidth 1.5 mul 400 add scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth 1.5 mul 400 add -200 rlineto
+      0 600 rlineto
+      NeumeWidth_neg_0_rlineto widestroke
+    }bind def
+
+
+    /n32{
+      /EffectiveNeumeWidth NeumeWidth 230 gt{230}{NeumeWidth}ifelse def
+      EffectiveNeumeWidth 1.8 mul 400 add scd
+      /n32bot -600 EffectiveNeumeWidth 2 div add def
+
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      EffectiveNeumeWidth EffectiveNeumeWidth neg
+      EffectiveNeumeWidth 1.8 mul n32bot
+      EffectiveNeumeWidth 1.8 mul 400 add n32bot rcurveto
+      0 300 rlineto currentpoint widestroke
+      pop NeumeVstrokeWidth 2 div add 0 moveto
+      0 100 rlineto -200 0 rlineto 0 -200 rlineto
+      200 NeumeVstrokeWidth sub 0 rlineto closepath fill
+    }bind def
+
+    /n33{
+      NeumeWidth 2.8 mul scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      20 0 rlineto
+      NeumeWidth NeumeWidth neg
+      NeumeWidth 1.8 mul -400
+      NeumeWidth 2.8 mul -400 rcurveto
+
+      0 400 rlineto currentpoint widestroke moveto
+      NeumeVstrokeWidth 2 div 0 rmoveto
+
+      0 NeumeWidth 2 div rlineto
+      NeumeWidth_neg_0_rlineto
+      0 NeumeWidth dup 300 gt{pop 300}if neg rlineto
+      NeumeWidth_0_rlineto
+      closepath fill
+    }bind def
+
+    /clivis6{
+      NeumeWidth 2 mul scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 -600 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n34{
+      NeumeWidth lsb add DiamondWidth 1.6 mul 2 mul add scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 2.5 dstem_length neg rlineto widestroke
+
+      lsb DiamondWidth add NeumeWidth add 0 moveto
+      2{DiamondNh DiamondWidth 1.6 mul -400 rmoveto}repeat
+    }bind def
+
+    /n35{
+      NeumeWidth 2 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n36{
+      NeumeWidth 3 mul scd
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      NeumeWidth_0_rlineto
+      0 -400 rlineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n37{
+      NeumeWidth lsb add DiamondWidth 1.7 mul 2 mul add scd
+      false n16_proc
+      lsb DiamondWidth add NeumeWidth add 0 moveto
+      2{DiamondNh DiamondWidth 1.6 mul -200 rmoveto}repeat
+    }bind def
+
+    /n38{
+      NeumeWidth lsb add DiamondWidth 1.7 mul 2 mul add scd
+      false n16_proc
+      lsb DiamondWidth add NeumeWidth add 200 moveto
+      3{DiamondNh DiamondWidth 1.6 mul -200 rmoveto}repeat
+    }bind def
+
+    /n39{
+      /EffectiveNeumeWidth NeumeWidth 230 gt{230}{NeumeWidth}ifelse def
+      EffectiveNeumeWidth 1.8 mul 400 add scd
+
+      /n39bot -240 def
+
+      lsb 2 dstem_length neg moveto
+      lsb 200 lineto
+      EffectiveNeumeWidth -140
+      EffectiveNeumeWidth 1.8 mul n39bot
+      EffectiveNeumeWidth 1.8 mul 400 add n39bot rcurveto
+
+
+
+      0 340 rlineto currentpoint widestroke
+      moveto
+      /savemtx matrix currentmatrix def
+      200 NeumeWidth div dup scale NeumeWidth_neg_0_rlineto
+      savemtx setmatrix
+      0 -180 rlineto
+      200 NeumeWidth div dup scale
+      NeumeWidth_0_rlineto
+      savemtx setmatrix
+      closepath fill
+    }bind def
+
+    /n40{
+      NeumeWidth 3 mul scd
+      lsb 200 moveto
+      NeumeWidth_0_rlineto
+      0 600 rlineto
+      NeumeWidth_0_rlineto
+      0 -200 rlineto
+      NeumeWidth_0_rlineto widestroke
+    }bind def
+
+    /n41{
+      NeumeWidth lsb add DiamondWidth 1.7 mul 2 mul add scd
+      false n16_proc
+      lsb DiamondWidth add NeumeWidth add 200 moveto
+      2{DiamondNh DiamondWidth 1.6 mul -200 rmoveto}repeat
+    }bind def
+
+%%%%% add here
+
+    /Fclef{
+      600 0 0 200 500 1000 setcachedevice
+      100 200 Pm 0 800 rlineto 400 0 rlineto 0 -60 rlineto -340 0 rlineto 0 -280 rlineto 340 0 rlineto
+      0 -60 rlineto -340 0 rlineto 0 -400 rlineto -60 0 rlineto closepath fill
+    }bind def
+
+    /Cclef{
+      600 0 70 170 500 630 setcachedevice
+      500 200 Pm -400 0 rlineto 0 400 rlineto 400 0 rlineto 60 setlinewidth stroke
+    }bind def
+
+    /barsingle{
+      240 0 -300 600 -260 1400 setcachedevice
+      -280 600 Pm 0 800 rlineto 60 setlinewidth stroke
+    }bind def
+
+    /barsinglebr{
+      680 0 -500 380 -60 1600 setcachedevice
+      -280 600 Pm 0 800 rlineto 60 setlinewidth stroke
+      -380 500 Pm -100 0 rlineto 0 1000//.ondround exec rlineto 100 0 rlineto 40 setlinewidth stroke
+      -180 500 Pm 100 0 rlineto 0 1000//.ondround exec rlineto -100 0 rlineto stroke
+    }bind def
+
+    /leger{
+      LegerDict begin
+        /NeumeCentre NeumeWidth 2 div lsb add def
+        /Leger_width NeumeWidth 1.67 mul def
+        0 0 -70 0 Leger_width 100 add 420 setcachedevice
+        NeumeCentre Leger_width 2 div sub 200 Pm Leger_width 0 rlineto 40 setlinewidth stroke
+      end
+    }bind def
+
+    /hdot{500 0 100 135 230 265 setcachedevice 165 200 NeumeWidth 250 div 65 mul 0 360 arc fill}bind def
+
+    /mrest{
+      230 0 70 400 130 1200 setcachedevice
+      100 400 Pm 0 800 rlineto 60 setlinewidth stroke
+    }bind def
+
+    /nstaff1{
+      1000 0 0 -20 1000 1220 setcachedevice
+      [0 400 800 1200]{0 exch Pm 1000 0 rlineto 40 setlinewidth stroke}forall
+    }bind def
+
+    /nstaff10{
+      10000 0 0 -20 10000 1220 setcachedevice
+      [0 400 800 1200]{0 exch Pm 10000 0 rlineto 40 setlinewidth stroke}forall
+    }bind def
+
+    /d1{0 -100 0 0 0 0 setcachedevice}bind def
+
+    /d4{0 -400 0 0 0 0 setcachedevice}bind def
+
+    /u4{0 400 0 0 0 0 setcachedevice}bind def
+
+    /l1{-100 0 0 0 0 0 setcachedevice}bind def
+
+    /r1{100 0 0 0 0 0 setcachedevice}bind def
+
+    /bs{-330 0 0 0 0 0 setcachedevice}bind def
+
+    /ds{0 -200 0 0 0 0 setcachedevice}bind def
+
+    /fs{550 0 0 0 0 0 setcachedevice}bind def
+
+    /us{0 200 0 0 0 0 setcachedevice}bind def
+
+    /crest{
+      500 0 100 200 230 400 setcachedevice
+      165 200 Pm 0 200 rlineto 130 setlinewidth stroke
+    }bind def
+
+
+  end % CharacterDefs
+end % Tools
+
+
+/BuildChar{
+  1 index/Encoding get exch get
+  1 index/BuildGlyph get exec
+}bind def
+
+/BuildGlyph{
+  exch begin
+    true setstrokeadjust
+    Tools begin
+      ExtraCharacterDefs 1 index known{ExtraCharacterDefs}{CharacterDefs}ifelse exch get exec
+    end % Tools
+  end %font
+}bind def
+
+currentdict dup/FontName get exch end definefont pop
+
+systemdict/currentpacking known{SavePacking setpacking}if
+
+%%EndFont: Breath-02
